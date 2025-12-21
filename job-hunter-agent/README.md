@@ -1,0 +1,106 @@
+# Job Hunter Agent
+
+CrewAI 기반의 자동화된 구직 에이전트 애플리케이션입니다. AI 에이전트를 활용하여 채용 공고 검색, 분석, 지원 등의 구직 활동을 자동화합니다.
+
+## 프로젝트 개요
+
+이 프로젝트는 CrewAI 프레임워크를 사용하여 자율적으로 동작하는 AI 에이전트를 오케스트레이션하여 구직 활동을 지원하는 애플리케이션입니다. Firecrawl을 활용한 웹 스크래핑으로 채용 공고 및 기업 정보를 수집합니다.
+
+## 주요 기능 (예정)
+
+- 🔍 채용 공고 자동 검색 및 수집
+- 📊 채용 공고 분석 및 매칭
+- 📝 자동 지원 프로세스
+- 🏢 기업 정보 수집 및 분석
+
+## 기술 스택
+
+- **Python**: 3.9+
+- **CrewAI**: AI 에이전트 워크플로우 구축 프레임워크
+- **Firecrawl**: 웹 스크래핑 도구
+- **python-dotenv**: 환경 변수 관리
+- **uv**: 의존성 관리 도구
+
+## 프로젝트 구조
+
+```
+job-hunter-agent/
+├── main.py              # 애플리케이션 진입점
+├── pyproject.toml       # 프로젝트 의존성 및 메타데이터
+├── uv.lock             # 의존성 잠금 파일
+├── .gitignore          # Git 제외 파일 목록
+├── .python-version     # Python 버전 명시 (3.9)
+├── CLAUDE.md           # Claude Code 가이드
+├── knowledge/          # 지식 베이스 디렉토리
+│   └── resume.txt      # 이력서 정보
+└── README.md           # 프로젝트 문서
+```
+
+## 설치 및 실행
+
+### 1. 사전 요구사항
+
+- Python 3.9 이상
+- uv 패키지 매니저
+
+### 2. 의존성 설치
+
+```bash
+# uv를 사용하여 의존성 설치
+uv sync
+```
+
+### 3. 환경 변수 설정
+
+프로젝트 루트에 `.env` 파일을 생성하고 필요한 API 키를 설정합니다:
+
+```bash
+# .env 파일 예시
+OPENAI_API_KEY=your_openai_api_key
+FIRECRAWL_API_KEY=your_firecrawl_api_key
+```
+
+### 4. 애플리케이션 실행
+
+```bash
+# 가상환경 활성화
+source .venv/bin/activate  # macOS/Linux
+# 또는
+.venv\Scripts\activate     # Windows
+
+# 애플리케이션 실행
+python main.py
+
+# 또는 uv 사용
+uv run main.py
+```
+
+## 개발 상태
+
+현재 프로젝트는 초기 개발 단계입니다. `main.py`는 기본적인 진입점만 포함하고 있으며, CrewAI 에이전트 구현이 예정되어 있습니다.
+
+### 예정된 개발 사항
+
+- CrewAI 에이전트 정의 (Agent, Task, Crew)
+- Firecrawl을 활용한 채용 공고 스크래핑 기능
+- 이력서 기반 자동 매칭 알고리즘
+- 지원 프로세스 자동화
+
+## Knowledge Base
+
+`knowledge/` 디렉토리는 에이전트가 활용할 수 있는 지식 베이스를 포함합니다:
+
+- **resume.txt**: 사용자의 이력서 정보 (Kim Jeong-tae)
+  - 13년차 모바일 앱 개발자 (Flutter, Android, iOS)
+  - Kakao, Kakao Brain, 11st, LG Electronics 경력
+  - 주요 기술: Flutter, Kotlin, Dart, Swift, SwiftUI, Android Compose
+
+## 라이선스
+
+이 프로젝트는 개인 학습 및 연구 목적으로 작성되었습니다.
+
+## 참고사항
+
+- API 키는 절대 저장소에 커밋하지 마세요 (`.env` 파일은 `.gitignore`에 포함됨)
+- CrewAI 에이전트 패턴은 Agent, Task, Crew를 정의하여 워크플로우를 오케스트레이션합니다
+- Firecrawl은 채용 사이트 및 기업 웹사이트 스크래핑에 사용됩니다
