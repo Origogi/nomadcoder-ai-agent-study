@@ -9,7 +9,6 @@ from agents import Runner, SQLiteSession
 
 client = OpenAI()
 
-
 if "session" not in st.session_state:
     st.session_state["session"] = SQLiteSession(
         "chat-history",
