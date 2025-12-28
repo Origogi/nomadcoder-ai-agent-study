@@ -5,7 +5,23 @@ dotenv.load_dotenv()
 from openai import OpenAI
 import asyncio
 import streamlit as st
-from agents import Runner, SQLiteSession
+from agents import Runner, SQLiteSession, function_tool, RunContextWrapper
+from models import UserAccountContext
+
+
+@function_tool
+def get_user_tier(wrapper: RunContextWrapper[UserAccountContext]):
+    return (
+        f"The User {wrapper.context.customer_id} has a {wrapper.context.tier} account"
+    )
+
+
+user_account_ctx = UserAccountContext(
+    customer_id=1,
+    name="Origogi",
+    email="email@email.com",
+    tier="basic",
+)
 
 client = OpenAI()
 
@@ -33,7 +49,6 @@ asyncio.run(paint_history())
 
 
 async def run_agent(message):
-
     with st.chat_message("ai"):
         text_placeholder = st.empty()
         response = ""
@@ -44,11 +59,11 @@ async def run_agent(message):
             agent,
             message,
             session=session,
+            context=user_account_ctx,
         )
 
         async for event in stream.stream_events():
             if event.type == "raw_response_event":
-
                 if event.data.type == "response.output_text.delta":
                     response += event.data.delta
                     text_placeholder.write(response.replace("$", "\$"))
@@ -59,7 +74,6 @@ message = st.chat_input(
 )
 
 if message:
-
     if "text_placeholder" in st.session_state:
         st.session_state["text_placeholder"].empty()
 
