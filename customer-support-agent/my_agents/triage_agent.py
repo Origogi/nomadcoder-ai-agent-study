@@ -1,9 +1,43 @@
-from agents import Agent, RunContextWrapper
-from models import UserAccountContext
+from agents import (
+    Agent,
+    RunContextWrapper,
+    input_guardrail,
+    Runner,
+    GuardrailFunctionOutput,
+)
+from models import UserAccountContext, InputGuardRailOutput
+
+input_guardrail_agent = Agent(
+    name="Input Guardrail Agent",
+    instructions="""
+    Ensure the user's request specifically pertains to User Account details, Billing inquiries, Order information, or Technical Support issues, and is not off-topic. If the request is off-topic, return a reason for the tripwire. You can make small conversation with the user, specially at the beginning of the conversation, but don't help with requests that are not related to User Account details, Billing inquiries, Order information, or Technical Support issues.
+""",
+    output_type=InputGuardRailOutput,
+)
+
+
+# SDK 버전 업데이트로 인한 타입 시그니처 불일치 - 런타임에는 정상 동작
+@input_guardrail  # type: ignore[reportCallIssue]
+async def off_topic_guardrail(
+    wrapper: RunContextWrapper[UserAccountContext],
+    agent: Agent[UserAccountContext],
+    input: str,
+) -> GuardrailFunctionOutput:
+    result = await Runner.run(
+        input_guardrail_agent,
+        input,
+        context=wrapper.context,
+    )
+
+    return GuardrailFunctionOutput(
+        output_info=result.final_output,
+        tripwire_triggered=result.final_output.is_off_topic,
+    )
 
 
 def dynamic_triage_agent_instructions(
-    wrapper: RunContextWrapper[UserAccountContext], agent: Agent[UserAccountContext]
+    wrapper: RunContextWrapper[UserAccountContext],
+    agent: Agent[UserAccountContext],
 ):
     return f"""
     You are a customer support agent. You ONLY help customers with their questions about their User Account, Billing, Orders, or Technical Support.
@@ -60,5 +94,9 @@ def dynamic_triage_agent_instructions(
 
 
 triage_agent = Agent(
-    name="Triage Agent", instructions=dynamic_triage_agent_instructions
+    name="Triage Agent",
+    instructions=dynamic_triage_agent_instructions,
+    input_guardrails=[
+        off_topic_guardrail,
+    ],
 )

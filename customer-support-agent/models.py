@@ -6,3 +6,7 @@ class UserAccountContext(BaseModel):
     name: str
     email : str
     tier: str = "basic"  # premium enterprise
+
+class InputGuardRailOutput(BaseModel):
+    is_off_topic : bool
+    reason : str
