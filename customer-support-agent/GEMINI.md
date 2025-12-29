@@ -22,8 +22,14 @@ OPENAI_API_KEY=your-api-key-here
 ```
 
 ### 실행
+Streamlit 서버를 백그라운드에서 실행하고 브라우저를 즉시 열려면 다음 명령어를 사용합니다:
 ```bash
-uv run python main.py
+pkill -f "streamlit" || true && nohup uv run streamlit run main.py --server.headless true > streamlit.log 2>&1 & sleep 2 && open http://localhost:8501
+```
+
+로그 확인:
+```bash
+tail -f streamlit.log
 ```
 
 ## 프로젝트 구조

@@ -1,12 +1,14 @@
+import asyncio
+
 import dotenv
+import streamlit as st
+from openai import OpenAI
+
+from agents import RunContextWrapper, Runner, SQLiteSession, function_tool
+from models import UserAccountContext
+from my_agents.triage_agent import triage_agent
 
 dotenv.load_dotenv()
-
-from openai import OpenAI
-import asyncio
-import streamlit as st
-from agents import Runner, SQLiteSession, function_tool, RunContextWrapper
-from models import UserAccountContext
 
 
 @function_tool
@@ -56,7 +58,7 @@ async def run_agent(message):
         st.session_state["text_placeholder"] = text_placeholder
 
         stream = Runner.run_streamed(
-            agent,
+            triage_agent,
             message,
             session=session,
             context=user_account_ctx,
