@@ -4,18 +4,13 @@ import dotenv
 import streamlit as st
 from openai import OpenAI
 
-from agents import RunContextWrapper, Runner, SQLiteSession, function_tool
+from agents import RunContextWrapper, Runner, SQLiteSession, InputGuardrailTripwireTriggered
 from models import UserAccountContext
 from my_agents.triage_agent import triage_agent
 
 dotenv.load_dotenv()
 
 
-@function_tool
-def get_user_tier(wrapper: RunContextWrapper[UserAccountContext]):
-    return (
-        f"The User {wrapper.context.customer_id} has a {wrapper.context.tier} account"
-    )
 
 
 user_account_ctx = UserAccountContext(
@@ -57,18 +52,22 @@ async def run_agent(message):
 
         st.session_state["text_placeholder"] = text_placeholder
 
-        stream = Runner.run_streamed(
-            triage_agent,
-            message,
-            session=session,
-            context=user_account_ctx,
-        )
+        try:
+            stream = Runner.run_streamed(
+                triage_agent,
+                message,
+                session=session,
+                context=user_account_ctx,
+            )
 
-        async for event in stream.stream_events():
-            if event.type == "raw_response_event":
-                if event.data.type == "response.output_text.delta":
-                    response += event.data.delta
-                    text_placeholder.write(response.replace("$", "\$"))
+            async for event in stream.stream_events():
+                if event.type == "raw_response_event":
+
+                    if event.data.type == "response.output_text.delta":
+                        response += event.data.delta
+                        text_placeholder.write(response.replace("$", "\$"))
+        except InputGuardrailTripwireTriggered:
+            text_placeholder.write("I can't help you with that.")
 
 
 message = st.chat_input(
