@@ -4,13 +4,16 @@ import dotenv
 import streamlit as st
 from openai import OpenAI
 
-from agents import RunContextWrapper, Runner, SQLiteSession, InputGuardrailTripwireTriggered
+from agents import (
+    RunContextWrapper,
+    Runner,
+    SQLiteSession,
+    InputGuardrailTripwireTriggered,
+)
 from models import UserAccountContext
 from my_agents.triage_agent import triage_agent
 
 dotenv.load_dotenv()
-
-
 
 
 user_account_ctx = UserAccountContext(
@@ -27,6 +30,10 @@ if "session" not in st.session_state:
         "chat-history",
         "customer-support-memory.db",
     )
+
+if "agent" not in st.session_state:
+    st.session_state["agent"] = triage_agent
+
 session = st.session_state["session"]
 
 
@@ -53,8 +60,10 @@ async def run_agent(message):
         st.session_state["text_placeholder"] = text_placeholder
 
         try:
+            run_agent = st.session_state["agent"]
+
             stream = Runner.run_streamed(
-                triage_agent,
+                run_agent,
                 message,
                 session=session,
                 context=user_account_ctx,
@@ -62,10 +71,22 @@ async def run_agent(message):
 
             async for event in stream.stream_events():
                 if event.type == "raw_response_event":
-
                     if event.data.type == "response.output_text.delta":
                         response += event.data.delta
                         text_placeholder.write(response.replace("$", "\$"))
+                elif event.type == "agent_updated_stream_event":
+                    from_agent = st.session_state["agent"]
+                    to_agent = event.new_agent
+
+                    if from_agent.name != to_agent.name:
+                        st.write(
+                            f"🤖 Transfered from {from_agent.name} to {to_agent.name}"
+                        )
+                        st.session_state["agent"] = to_agent
+
+                        text_placeholder = st.empty()
+                        response = ""
+
         except InputGuardrailTripwireTriggered:
             text_placeholder.write("I can't help you with that.")
 

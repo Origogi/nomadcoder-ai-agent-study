@@ -25,7 +25,6 @@ input_guardrail_agent = Agent(
     output_type=InputGuardRailOutput,
 )
 
-
 # SDK 버전 업데이트로 인한 타입 시그니처 불일치 - 런타임에는 정상 동작
 @input_guardrail  # type: ignore[reportCallIssue]
 async def off_topic_guardrail(
