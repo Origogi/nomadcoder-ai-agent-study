@@ -57,8 +57,6 @@ async def run_agent(message):
         text_placeholder = st.empty()
         response = ""
 
-        st.session_state["text_placeholder"] = text_placeholder
-
         try:
             run_agent = st.session_state["agent"]
 
@@ -96,13 +94,9 @@ message = st.chat_input(
 )
 
 if message:
-    if "text_placeholder" in st.session_state:
-        st.session_state["text_placeholder"].empty()
-
-    if message:
-        with st.chat_message("human"):
-            st.write(message)
-        asyncio.run(run_agent(message))
+    with st.chat_message("human"):
+        st.write(message)
+    asyncio.run(run_agent(message))
 
 
 with st.sidebar:
