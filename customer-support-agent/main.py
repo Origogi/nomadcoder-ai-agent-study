@@ -9,6 +9,7 @@ from agents import (
     Runner,
     SQLiteSession,
     InputGuardrailTripwireTriggered,
+    OutputGuardrailTripwireTriggered
 )
 from models import UserAccountContext
 from my_agents.triage_agent import triage_agent
@@ -86,7 +87,10 @@ async def run_agent(message):
                         response = ""
 
         except InputGuardrailTripwireTriggered:
-            text_placeholder.write("I can't help you with that.")
+            st.write("I can't help you with that.")
+        except OutputGuardrailTripwireTriggered:
+            st.write("Can show you that answer.")
+            st.session_state["text_placeholder"].empty()
 
 
 message = st.chat_input(

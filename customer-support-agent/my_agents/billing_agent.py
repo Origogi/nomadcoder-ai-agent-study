@@ -1,5 +1,12 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
+from tools import (
+    lookup_billing_history,
+    process_refund_request,
+    update_payment_method,
+    apply_billing_credit,
+    AgentToolUsageLoggingHooks
+)
 
 
 def dynamic_billing_agent_instructions(
@@ -38,5 +45,12 @@ def dynamic_billing_agent_instructions(
 
 billing_agent = Agent(
     name="Billing Support Agent",
+    tools=[
+        lookup_billing_history,
+        process_refund_request,
+        update_payment_method,
+        apply_billing_credit,
+    ],
+    hooks=AgentToolUsageLoggingHooks(),
     instructions=dynamic_billing_agent_instructions,
 )
