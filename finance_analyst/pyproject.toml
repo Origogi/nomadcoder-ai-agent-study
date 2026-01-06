@@ -6,7 +6,14 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "certifi>=2026.1.4",
+    "fastapi==0.118.3",
     "firecrawl-py>=4.12.0",
-    "google-adk>=1.21.0",
+    "google-adk>=1.18.0",
+    "pydantic==2.10.6",
     "python-dotenv>=1.2.1",
+]
+
+[tool.uv]
+override-dependencies = [
+    "pydantic==2.10.6"
 ]

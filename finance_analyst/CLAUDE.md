@@ -45,7 +45,7 @@ uv run adk web --reload_agents
 ### Type 종류
 - **feat**: 새로운 기능 추가
 - **fix**: 버그 수정
-- **docs**: 문서 수정 (README.md, gemini.md 등)
+- **docs**: 문서 수정 (README.md, CLAUDE.md 등)
 - **style**: 코드 포맷팅, 세미콜론 누락 등 (로직 변경 없음)
 - **refactor**: 코드 리팩토링
 - **test**: 테스트 코드 추가 및 리팩토링
@@ -63,4 +63,3 @@ fix(tools): Firecrawl v2 API 호환성 버그 수정
 - 검색 결과에서 markdown 필드가 누락되는 경우에 대한 예외 처리 추가
 - 속성 접근 시 getattr을 사용하여 안정성 확보
 ```
-
