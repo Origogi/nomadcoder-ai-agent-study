@@ -20,6 +20,7 @@ news_analyst = Agent(
 
     Search for current news and summarize the findings clearly.
     """,
+    output_key="news_analyst_result",
     tools=[
         GoogleSearchTool(),
     ],

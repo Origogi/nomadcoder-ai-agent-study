@@ -167,4 +167,5 @@ financial_analyst = Agent(
         get_balance_sheet,
         get_cash_flow,
     ],
+    output_key="finance_analyst_result"
 )

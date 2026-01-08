@@ -159,4 +159,5 @@ data_analyst = LlmAgent(
         get_stock_price,
         get_financial_metrics,
     ],
+    output_key="data_analyst_result"
 )
