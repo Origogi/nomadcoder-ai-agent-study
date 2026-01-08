@@ -1,33 +1,28 @@
 from google.adk.agents import Agent
-from google.adk.tools.google_search_tool import GoogleSearchTool
+from google.adk.tools.agent_tool import AgentTool
+from .prompt import PROMPT
+from .sub_agents.data_analyst import data_analyst
+from .sub_agents.finance_analyst import financial_analyst
+from .sub_agents.news_analyst import news_analyst
 
-MODEL="gemini-2.5-flash"
+MODEL = "gemini-2.5-flash"
 
-def get_weather(city: str):
-    return f"The Weather in {city} is 40 degrees."
 
-def convert_units(degrees:int):
-    return f"That is 40 farenheit"
+def save_advice_report():
+    pass
 
-geo_agent = Agent(
-    name="GeoAgent",
-    instruction="You help with geo question",
-    description="Transfer to this agent when you have a geo related question.",
-    model=MODEL,
-)
 
-weather_agent = Agent(
-    name="WeatherAgent",
-    instruction="You help the user with weather related questions",
+financial_advisor = Agent(
+    name="FinancialAdvisor",
+    instruction=PROMPT,
     model=MODEL,
     tools=[
-        # GoogleSearchTool(bypass_multi_tools_limit=True),
-        get_weather,
-        convert_units
+        AgentTool(agent=financial_analyst),
+        AgentTool(agent=data_analyst),
+        AgentTool(agent=news_analyst),
+        save_advice_report,
     ],
-    sub_agents=[
-        geo_agent
-    ]
 )
 
-root_agent = weather_agent
+
+root_agent = financial_advisor
