@@ -2,7 +2,7 @@ from google.adk.agents import Agent
 from google.adk.tools.google_search_tool import GoogleSearchTool
 
 
-MODEL="gemini-2.5-flash"
+MODEL="gemini-2.0-flash"
 
 
 news_analyst = Agent(
@@ -22,6 +22,6 @@ news_analyst = Agent(
     """,
     output_key="news_analyst_result",
     tools=[
-        GoogleSearchTool(),
+        GoogleSearchTool(bypass_multi_tools_limit=True),
     ],
 )

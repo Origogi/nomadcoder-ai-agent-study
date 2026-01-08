@@ -1,7 +1,7 @@
 import yfinance as yf
 from google.adk.agents import Agent
 
-MODEL="gemini-2.5-flash"
+MODEL="gemini-3-flash-preview"
 
 def get_income_statement(ticker: str):
     """

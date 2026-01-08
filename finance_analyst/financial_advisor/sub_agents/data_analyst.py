@@ -1,7 +1,7 @@
 import yfinance as yf
 from google.adk.agents import LlmAgent
 
-MODEL="gemini-2.5-flash"
+MODEL="gemini-3-flash-preview"
 
 
 def get_company_info(ticker: str):

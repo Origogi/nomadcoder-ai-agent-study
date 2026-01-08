@@ -1,4 +1,5 @@
 from google.adk.agents import Agent
+from google.genai import types
 from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools.tool_context import ToolContext
 from .prompt import PROMPT
@@ -6,15 +7,13 @@ from .sub_agents.data_analyst import data_analyst
 from .sub_agents.finance_analyst import financial_analyst
 from .sub_agents.news_analyst import news_analyst
 
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3-pro-preview"
 
 
-def save_advice_report(tool_context : ToolContext, summary :str):
-    state = tool_context.state
-
-    data_analyst_result = state.get("data_analyst_result")
-    finance_analyst_result = state.get("finance_analyst_result")
-    news_analyst_result = state.get("news_analyst_result")
+async def save_advice_report(tool_context : ToolContext, summary :str, ticker :str):
+    data_analyst_result = tool_context.state.get("data_analyst_result")
+    finance_analyst_result = tool_context.state.get("finance_analyst_result")
+    news_analyst_result = tool_context.state.get("news_analyst_result")
 
     report = f"""
     # Exetuve Summary and advice:
@@ -30,7 +29,19 @@ def save_advice_report(tool_context : ToolContext, summary :str):
     {news_analyst_result}
 
     """
-    state["report"] = report
+    tool_context.state["report"] = report
+
+    filename = f"{ticker}_investment_advice.md"
+
+    artifact = types.Part(
+        inline_data=types.Blob(
+            mime_type="text/markdown",
+            data=report.encode("utf-8")
+        )
+    )
+
+    await tool_context.save_artifact(filename=filename, artifact=artifact)
+
     return {
         "success" : True
     }
