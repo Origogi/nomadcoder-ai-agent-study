@@ -9,5 +9,6 @@ content_planner_agent = Agent(
     description=SHORTS_PRODUCER_DESCRIPTION,
     instruction=SHORTS_PRODUCER_PROMPT,
     model=MODEL,
-    output_schema=ContentPlanOutput
+    output_schema=ContentPlanOutput,
+    output_key="content_planner_output",    
 )
