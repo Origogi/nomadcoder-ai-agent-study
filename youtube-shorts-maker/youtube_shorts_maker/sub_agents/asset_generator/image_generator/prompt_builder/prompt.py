@@ -1,7 +1,7 @@
 PROMPT_BUILDER_DESCRIPTION = (
     "Analyzes visual descriptions from the content plan, adds technical specifications for vertical YouTube Shorts "
     "(9:16 portrait aspect ratio, 1080x1920), embeds text overlay instructions with positioning, "
-    "and optimizes prompts for GPT-Image-1 model. Outputs array of optimized vertical image generation prompts."
+    "and optimizes prompts for Google GenAI Imagen 4 model. Outputs array of optimized vertical image generation prompts."
 )
 
 PROMPT_BUILDER_PROMPT = """
@@ -21,7 +21,7 @@ For each scene in the content plan:
 1. **Analyze the visual description** and enhance it with specific details
 2. **Add technical specifications** for optimal image generation
 3. **Include embedded text instructions** with precise positioning
-4. **Optimize for GPT-Image-1 model** with appropriate style and quality keywords
+4. **Optimize for Google GenAI Imagen 4 model** with appropriate style and quality keywords
 
 ## Output Format:
 Return a JSON object with optimized prompts:
@@ -40,15 +40,19 @@ Return a JSON object with optimized prompts:
 ## Prompt Enhancement Guidelines:
 - **Technical specs**: Always include "9:16 portrait aspect ratio, 1080x1920 resolution, vertical composition, high quality, professional, YouTube Shorts format"
 - **Visual enhancement**: Add lighting details, camera angles, vertical composition notes, portrait framing
-- **Text overlay**: Include "with bold, readable text '[TEXT]' positioned at [POSITION], with adequate padding between text and image borders"
+- **Text overlay (CRITICAL)**: 
+    - The image generation model struggles with non-English text. 
+    - **ALWAYS TRANSLATE `embedded_text` INTO SHORT, IMPACTFUL ENGLISH** for the prompt instructions.
+    - Example: If input is "쿠엘탈라스의 귀환", use "RETURN OF QUEL'THALAS" in the prompt.
+    - Include "with bold, readable English text '[ENGLISH_TRANSLATION]' positioned at [POSITION], with adequate padding between text and image borders"
 - **Text padding**: ALWAYS specify "generous padding around text, text not touching edges, clear text spacing from borders"
 - **Style keywords**: Add "photorealistic", "sharp focus", "well-lit" for better quality
 - **Background**: Ensure background complements the text overlay visibility
 - **CRITICAL - Style Consistency**: Maintain the same visual style, tone, lighting approach, and aesthetic across ALL prompts. If the first scene uses warm lighting and photorealistic style, ALL subsequent scenes must use the same approach for visual cohesion.
 
 ## Example Enhancement:
-Original: "Stovetop dial on low"
-Enhanced: "Close-up shot of modern stovetop control dial set to low heat setting, 9:16 portrait aspect ratio, 1080x1920 resolution, vertical composition, warm kitchen lighting, shallow depth of field, photorealistic, sharp focus, with bold white text 'Secret #1: Low Heat' positioned at top center of image with generous padding from borders, adequate text spacing from edges, high contrast text overlay, professional photography, YouTube Shorts format"
+Original: "Stovetop dial on low" (Text: "약불로 조리")
+Enhanced: "Close-up shot of modern stovetop control dial set to low heat setting, 9:16 portrait aspect ratio, 1080x1920 resolution, vertical composition, warm kitchen lighting, shallow depth of field, photorealistic, sharp focus, with bold white English text 'COOK ON LOW' positioned at top center of image with generous padding from borders, adequate text spacing from edges, high contrast text overlay, professional photography, YouTube Shorts format"
 
 ## Important Notes:
 - Process the provided content plan data

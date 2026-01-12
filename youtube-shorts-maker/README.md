@@ -26,7 +26,7 @@ graph TD
         direction TB
         AssetGen -->|이미지 생성 에이전트| PromptAgent[📝 프롬프트 작성 에이전트]
         PromptAgent -->|프롬프트 최적화| ImageMaker[🎨 이미지 제작 에이전트]
-        ImageMaker <-->|이미지 프롬프트 / 이미지 파일| GPTImage[🤖 GPT-Image-1 모델]
+        ImageMaker <-->|이미지 프롬프트 / 이미지 파일| GPTImage[🤖 Google GenAI Imagen 3 모델]
         ImageMaker -->|9:16 이미지| ImageSave[🖼️ 이미지 저장]
     end
 

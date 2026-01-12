@@ -4,7 +4,7 @@ from .sub_agents.content_planner.agent import content_planner_agent
 from .sub_agents.asset_generator.agent import asset_generator_agent
 from .prompt import SHORTS_PRODUCER_DESCRIPTION, SHORTS_PRODUCER_PROMPT
 
-MODEL = "gemini-2.0-flash-exp"
+MODEL = "gemini-3-pro-preview"
 
 shorts_producer_agent = Agent(
     name="ShortsProducerAgent",
