@@ -20,20 +20,17 @@ Google ADK(Agent Development Kit)를 활용하여 YouTube Shorts 콘텐츠를 �
 
 ## 프로젝트 진행 상황 (Roadmap & TODO)
 
-### ✅ 완료된 기능 (Phase 1 & 2)
+### ✅ 완료된 기능 (Phase 1, 2 & 3)
 - [x] **ContentPlannerAgent**: 주제 입력 시 5단계 씬(Scene)으로 구성된 JSON 스크립트 생성
 - [x] **AssetGeneratorAgent (Image)**: 
     - `PromptBuilder`: 씬 설명 분석 및 Google GenAI 최적화 프롬프트 생성
     - `ImageBuilder`: `imagen-4.0-generate-001` 모델 연동 및 9:16 이미지 생성
-- [x] **결과물 가시성 확보**: 생성된 이미지를 프로젝트 루트의 `output/images/` 폴더에 자동 저장
-- [x] **에러 처리 및 안정성**:
-    - 503 Service Unavailable 대응을 위한 지수 백오프(Exponential Backoff) 재시도 로직 구현
-    - 한글 텍스트 깨짐 방지를 위한 프롬프트 내 영어 번역 강제화
+- [x] **AssetGeneratorAgent (Voice)**: 
+    - Gemini 2.5 Flash Native TTS (`gemini-2.5-flash-preview-tts`) 연동
+    - 고품질 WAV 오디오 파일 생성 및 아티팩트 저장 (24kHz, 16-bit Mono)
+- [x] **결과물 가시성 확보**: 생성된 이미지 및 오디오를 프로젝트 루트의 `output/` 폴더 또는 ADK 아티팩트로 관리
 
-### 🚧 진행 중 / 예정 기능 (Phase 3 & 4)
-- [ ] **AssetGeneratorAgent (Voice)**: 
-    - TTS(Text-to-Speech) 모델 연동 (OpenAI 또는 Google Cloud TTS)
-    - 나레이션 오디오 파일 생성 및 저장
+### 🚧 진행 중 / 예정 기능 (Phase 4)
 - [ ] **VideoAssemblerAgent**:
     - FFmpeg를 활용한 영상/오디오 병합
     - 자막(Subtitle) 오버레이 및 트랜지션 효과 적용
@@ -48,6 +45,14 @@ Google ADK(Agent Development Kit)를 활용하여 YouTube Shorts 콘텐츠를 �
 ### 2. 프롬프트 엔지니어링 전략
 - **텍스트 렌더링**: 이미지 모델이 한글 처리에 약하므로, 프롬프트 생성 단계에서 `embedded_text`를 **영어로 번역**하도록 강제함.
 - **툴 호출 강화**: 메인 에이전트가 "말만 하고 실행 안 하는" 문제를 막기 위해 `DO NOT just say, MUST CALL TOOLS` 지침 추가.
+
+## 지식 관리 (Knowledge Management)
+- **Obsidian 저장**: 사용자가 중요 기술 개념이나 지식을 저장하고 싶어할 때, Obsidian 저장소에 마크다운 파일로 저장을 제안하거나 실행합니다.
+- **저장소 경로**: `/Users/gimjeongtae/Documents/Obsidian Vault`
+- **파일 형식**:
+    - **제목**: 명확하고 간결하게 (예: `PCM_vs_WAV_차이점.md`)
+    - **태그**: `#지식 #개발 #오디오` 등 적절한 태그 포함
+    - **내용**: 개념 정의, 특징, 코드 예시 등을 구조화하여 작성
 
 ## 실행 방법
 ```bash
