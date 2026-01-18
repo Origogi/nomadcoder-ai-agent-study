@@ -3,3 +3,21 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# ADK & Runtime
+.adk/
+**/.adk/
+*.db
+
+# Outputs
+output/
+downloads/
+
+# Media
+*.mp4
+*.wav
+*.mp3
+*.png
+*.jpg
+*.jpeg
+*.gif
