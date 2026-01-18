@@ -20,7 +20,7 @@ Google ADK(Agent Development Kit)를 활용하여 YouTube Shorts 콘텐츠를 �
 
 ## 프로젝트 진행 상황 (Roadmap & TODO)
 
-### ✅ 완료된 기능 (Phase 1, 2 & 3)
+### ✅ 완료된 기능 (Phase 1, 2, 3 & 4)
 - [x] **ContentPlannerAgent**: 주제 입력 시 5단계 씬(Scene)으로 구성된 JSON 스크립트 생성
 - [x] **AssetGeneratorAgent (Image)**: 
     - `PromptBuilder`: 씬 설명 분석 및 Google GenAI 최적화 프롬프트 생성
@@ -29,12 +29,15 @@ Google ADK(Agent Development Kit)를 활용하여 YouTube Shorts 콘텐츠를 �
     - Gemini 2.5 Flash Native TTS (`gemini-2.5-flash-preview-tts`) 연동
     - 고품질 WAV 오디오 파일 생성 및 아티팩트 저장 (24kHz, 16-bit Mono)
 - [x] **결과물 가시성 확보**: 생성된 이미지 및 오디오를 프로젝트 루트의 `output/` 폴더 또는 ADK 아티팩트로 관리
-
-### 🚧 진행 중 / 예정 기능 (Phase 4)
-- [ ] **VideoAssemblerAgent**:
+- [x] **VideoAssemblerAgent**:
     - FFmpeg를 활용한 영상/오디오 병합
     - 자막(Subtitle) 오버레이 및 트랜지션 효과 적용
     - 최종 `.mp4` 파일 렌더링 및 출력
+
+### 🚧 진행 중 / 예정 기능 (Phase 5)
+- [ ] **ADK Callback 구현**
+
+
 
 ## 최근 변경 사항 및 기술 노트 (Technical Notes)
 ### 1. 이미지 생성 모델 변경
