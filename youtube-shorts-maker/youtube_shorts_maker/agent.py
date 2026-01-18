@@ -7,15 +7,30 @@ from .prompt import SHORTS_PRODUCER_DESCRIPTION, SHORTS_PRODUCER_PROMPT
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_request import LlmRequest
 from google.adk.models.llm_response import LlmResponse
+from google.genai import types
 
 MODEL = "gemini-3-pro-preview"
 
 
-def before_model_callback(callback_context : CallbackContext):
-    # 현재 세션에서 마지막 메시지를 가져오고 싶어, 가드레일을 만들거야
-    
-    return None
+def before_model_callback(callback_context: CallbackContext, llm_request: LlmRequest):
+    last_message = llm_request.contents[-1]
 
+    if last_message and last_message.role == "user" and last_message.parts:
+        text = last_message.parts[-1].text or ""
+
+        if "hummus" in text:
+            return LlmResponse(
+                content=types.Content(
+                    role="model",
+                    parts=[
+                        types.Part(
+                            text="죄송합니다. 그것을 도와드릴수 없습니다.",
+                        ),
+                    ],
+                )
+            )
+
+    return None
 
 
 shorts_producer_agent = Agent(
@@ -28,7 +43,7 @@ shorts_producer_agent = Agent(
         AgentTool(agent=asset_generator_agent),
         AgentTool(agent=video_assembler_agent),
     ],
-    before_agent_callback=before_model_callback,
+    before_model_callback=before_model_callback,
 )
 
 root_agent = shorts_producer_agent
