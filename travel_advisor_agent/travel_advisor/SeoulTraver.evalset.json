@@ -1,0 +1,454 @@
+{
+  "eval_set_id": "SeoulTraver",
+  "name": "SeoulTraver",
+  "eval_cases": [
+    {
+      "eval_id": "Seoul",
+      "conversation": [
+        {
+          "invocation_id": "e-9823db43-2281-4a89-be97-671d4d86e276",
+          "user_content": {
+            "parts": [
+              {
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Hi there! How can I help you with your travel plans today? Are you looking for information on a specific location, or do you need help with weather, currency, or attractions?\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768890519.266166
+        },
+        {
+          "invocation_id": "e-806da5bb-5924-4a5f-90d0-d58bb7772803",
+          "user_content": {
+            "parts": [
+              {
+                "text": "한글로"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "안녕하세요! 오늘 여행 계획에 대해 무엇을 도와드릴까요? 특정 장소에 대한 정보를 찾고 계신가요, 아니면 날씨, 통화, 관광 명소에 대한 도움이 필요하신가요?\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768890525.827492
+        },
+        {
+          "invocation_id": "e-aca334dc-3424-43d6-834b-911e33140cd9",
+          "user_content": {
+            "parts": [
+              {
+                "text": "서울에 가고 싶어"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "서울에 가시는군요! 서울에 대해 무엇이 궁금하신가요? 날씨, 환율, 또는 관광 명소에 대해 알아봐 드릴 수 있습니다. 😊\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768890534.588834
+        },
+        {
+          "invocation_id": "e-47978e12-47b3-4600-abd1-40e19b080ac8",
+          "user_content": {
+            "parts": [
+              {
+                "text": "알려줘"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "네, 어떤 정보를 원하시는지 좀 더 구체적으로 말씀해 주시겠어요? 예를 들어, 서울의 날씨, 현재 환율 (어떤 통화에서 원화로 바꾸고 싶으신지), 또는 추천 관광 명소 등을 알려드릴 수 있습니다. 😊\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768890542.194472
+        },
+        {
+          "invocation_id": "e-46aa58aa-0620-4c47-b532-1ad98b607377",
+          "user_content": {
+            "parts": [
+              {
+                "text": "전부다"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "알겠습니다. 서울의 날씨, 환율, 그리고 관광 명소 정보를 모두 알려드리겠습니다.\n\n어떤 통화에서 원화로 환전하고 싶으신가요? 예를 들어, 미국 달러(USD)에서 원화(KRW)로 환전하고 싶다고 말씀해 주시면 됩니다. 환전 금액도 알려주시면 계산해 드릴 수 있습니다.\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768890548.983795
+        },
+        {
+          "invocation_id": "e-48e8a2b7-8835-4f62-ae55-7da2ffed53e4",
+          "user_content": {
+            "parts": [
+              {
+                "text": "100달러"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "알겠습니다.\n\n1.  **환율:** 현재 100 미국 달러(USD)는 132,500 원(KRW)으로 환전됩니다. (환율: 1 USD = 1325 KRW)\n2.  **날씨:** 현재 서울은 부분적으로 흐리고, 기온은 22°C 입니다. 습도는 65%이고, 바람은 12km/h로 불고 있습니다. 하루 종일 구름이 조금씩 있는 온화한 날씨가 예상됩니다.\n3.  **관광 명소:** 서울의 인기 명소는 다음과 같습니다:\n    *   시내 중심가 (City Center): 평점 4.2, 지역\n    *   역사 박물관 (Historical Museum): 평점 4.3, 박물관\n    *   중앙 공원 (Central Park): 평점 4.1, 공원\n    *   구시가지 (Old Town): 평점 4.4, 지역\n    *   지역 시장 (Local Market): 평점 4.0, 시장\n\n서울 여행에 대한 추가적인 질문이 있으시면 언제든지 물어보세요!\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "invocation_events": [
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "알겠습니다. 100 미국 달러(USD)를 원화(KRW)로 환전하는 것과 더불어, 서울의 날씨와 추천 관광 명소 정보를 알려드리겠습니다. 잠시만 기다려 주세요.\n"
+                    },
+                    {
+                      "function_call": {
+                        "id": "adk-4072505e-cbeb-477d-9894-870eab55c6b7",
+                        "args": {
+                          "amount": 100,
+                          "to_currency": "KRW",
+                          "from_currency": "USD"
+                        },
+                        "name": "get_exchange_rate"
+                      }
+                    },
+                    {
+                      "function_call": {
+                        "id": "adk-77d5b8e6-cfe6-4075-8074-08881308d98b",
+                        "args": {
+                          "location": "Seoul"
+                        },
+                        "name": "get_weather"
+                      }
+                    },
+                    {
+                      "function_call": {
+                        "id": "adk-2abf08fc-1b1b-4b35-85fc-2960b7d2688e",
+                        "args": {
+                          "location": "Seoul"
+                        },
+                        "name": "get_local_attractions"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "adk-4072505e-cbeb-477d-9894-870eab55c6b7",
+                        "name": "get_exchange_rate",
+                        "response": {
+                          "from_currency": "USD",
+                          "to_currency": "KRW",
+                          "amount": 100,
+                          "exchange_rate": 1325.0,
+                          "converted_amount": 132500.0,
+                          "timestamp": "2024-03-15 10:30:00 UTC"
+                        }
+                      }
+                    },
+                    {
+                      "function_response": {
+                        "id": "adk-77d5b8e6-cfe6-4075-8074-08881308d98b",
+                        "name": "get_weather",
+                        "response": {
+                          "location": "Seoul",
+                          "temperature": "22°C",
+                          "condition": "Partly cloudy",
+                          "humidity": "65%",
+                          "wind": "12 km/h",
+                          "forecast": "Mild weather with occasional clouds expected throughout the day"
+                        }
+                      }
+                    },
+                    {
+                      "function_response": {
+                        "id": "adk-2abf08fc-1b1b-4b35-85fc-2960b7d2688e",
+                        "name": "get_local_attractions",
+                        "response": {
+                          "location": "Seoul",
+                          "category": "all",
+                          "attractions": [
+                            {
+                              "name": "City Center",
+                              "type": "area",
+                              "rating": 4.2,
+                              "description": "Main downtown area"
+                            },
+                            {
+                              "name": "Historical Museum",
+                              "type": "museum",
+                              "rating": 4.3,
+                              "description": "Local history and culture"
+                            },
+                            {
+                              "name": "Central Park",
+                              "type": "park",
+                              "rating": 4.1,
+                              "description": "Main public park"
+                            },
+                            {
+                              "name": "Old Town",
+                              "type": "district",
+                              "rating": 4.4,
+                              "description": "Historic district with traditional architecture"
+                            },
+                            {
+                              "name": "Local Market",
+                              "type": "market",
+                              "rating": 4.0,
+                              "description": "Traditional local marketplace"
+                            }
+                          ],
+                          "total_count": 5
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              }
+            ]
+          },
+          "creation_timestamp": 1768890565.092457
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1768890675.209548
+    },
+    {
+      "eval_id": "Tokyo",
+      "conversation": [
+        {
+          "invocation_id": "e-435ea8c5-3a39-41de-854a-b5b910a5ec0f",
+          "user_content": {
+            "parts": [
+              {
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Hi there! How can I help you with your travel plans today?\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768891266.196932
+        },
+        {
+          "invocation_id": "e-773dbf8b-92fe-403d-a553-417ac8f75bdf",
+          "user_content": {
+            "parts": [
+              {
+                "text": "I want go to tokyo"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Okay, Tokyo is an amazing destination!\n\nI can help you with some information to get you started. I can provide you with:\n\n*   **Weather:** Current weather conditions in Tokyo.\n*   **Attractions:** Popular attractions and points of interest.\n*   **Currency:** Exchange rates for converting your currency to Japanese Yen (JPY).\n\nWhat would you like to know first? Or I can provide all of this information to you.\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1768891276.490109
+        },
+        {
+          "invocation_id": "e-bb188c3a-1522-46d7-b1c8-4278f6f81960",
+          "user_content": {
+            "parts": [
+              {
+                "text": "all"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Here are some of the top attractions in Tokyo:\n\n*   **Tokyo Tower:** A communications and observation tower with a rating of 4.5.\n*   **Senso-ji:** An ancient Buddhist temple with a rating of 4.6.\n*   **Shibuya Crossing:** The busiest pedestrian crossing in the world, with a rating of 4.4.\n*   **Meiji Shrine:** A Shinto shrine dedicated to Emperor Meiji, with a rating of 4.7.\n*   **Tokyo Skytree:** A broadcasting and observation tower, with a rating of 4.6.\n\nLastly, what currency would you like to convert to Japanese Yen (JPY)? Also, please provide the amount you would like to convert.\n"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "invocation_events": [
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Great! Let's start with the weather in Tokyo.\n\n"
+                    },
+                    {
+                      "function_call": {
+                        "id": "adk-643da4b1-5ddb-419f-909d-1749506e14a1",
+                        "args": {
+                          "location": "Tokyo"
+                        },
+                        "name": "get_weather"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "adk-643da4b1-5ddb-419f-909d-1749506e14a1",
+                        "name": "get_weather",
+                        "response": {
+                          "location": "Tokyo",
+                          "temperature": "22°C",
+                          "condition": "Partly cloudy",
+                          "humidity": "65%",
+                          "wind": "12 km/h",
+                          "forecast": "Mild weather with occasional clouds expected throughout the day"
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "OK. The current weather in Tokyo is partly cloudy with a temperature of 22°C. The forecast predicts mild weather with occasional clouds throughout the day. The humidity is at 65% and the wind is 12 km/h.\n\nNext, I will get you some popular attractions.\n\n"
+                    },
+                    {
+                      "function_call": {
+                        "id": "adk-b0807657-0b82-4c63-943b-95cdda1cc201",
+                        "args": {
+                          "location": "Tokyo"
+                        },
+                        "name": "get_local_attractions"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "adk-b0807657-0b82-4c63-943b-95cdda1cc201",
+                        "name": "get_local_attractions",
+                        "response": {
+                          "location": "Tokyo",
+                          "category": "all",
+                          "attractions": [
+                            {
+                              "name": "Tokyo Tower",
+                              "type": "landmark",
+                              "rating": 4.5,
+                              "description": "Communications and observation tower"
+                            },
+                            {
+                              "name": "Senso-ji",
+                              "type": "temple",
+                              "rating": 4.6,
+                              "description": "Ancient Buddhist temple"
+                            },
+                            {
+                              "name": "Shibuya Crossing",
+                              "type": "landmark",
+                              "rating": 4.4,
+                              "description": "Busiest pedestrian crossing"
+                            },
+                            {
+                              "name": "Meiji Shrine",
+                              "type": "shrine",
+                              "rating": 4.7,
+                              "description": "Shinto shrine dedicated to Emperor Meiji"
+                            },
+                            {
+                              "name": "Tokyo Skytree",
+                              "type": "tower",
+                              "rating": 4.6,
+                              "description": "Broadcasting and observation tower"
+                            }
+                          ],
+                          "total_count": 5
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              }
+            ]
+          },
+          "creation_timestamp": 1768891284.28091
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1768891305.426517
+    }
+  ],
+  "creation_timestamp": 1768890656.7098281
+}
