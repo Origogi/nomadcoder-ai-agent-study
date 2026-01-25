@@ -5,6 +5,8 @@ from .prompt import (
 )
 from google.adk.tools.tool_context import ToolContext
 
+MODEL = "gemini-2.5-flash"
+
 
 async def get_weather(tool_context: ToolContext, location: str):
     """Get current weather information for a location."""
@@ -179,7 +181,7 @@ travel_advisor_agent = Agent(
         get_exchange_rate,
         get_local_attractions,
     ],
-    model="gemini-2.0-flash",
+    model=MODEL,
 )
 
 root_agent = travel_advisor_agent
