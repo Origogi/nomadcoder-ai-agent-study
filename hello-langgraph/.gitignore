@@ -37,3 +37,8 @@ ENV/
 
 # Project specific
 .langsmith
+
+# Local SQLite checkpoint files
+memory.db
+memory.db-shm
+memory.db-wal
