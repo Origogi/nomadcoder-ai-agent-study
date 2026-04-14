@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        "main.py"
+    ],
+    "graphs" : {
+        "youtube_thumbnail_maker": "./graph.py:graph"
+    },
+    "env" : "./.env"
+}
