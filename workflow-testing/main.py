@@ -1,6 +1,9 @@
 from typing import Literal, List
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
+
+checkpointer = MemorySaver()
 
 
 class EmailState(TypedDict):
@@ -25,7 +28,7 @@ def categorize_email(state : EmailState):
     }
 
 
-def assingn_priority(state : EmailState):
+def assign_priority(state : EmailState):
     scores = {
         "urgent": 10,
         "normal": 5,
@@ -40,7 +43,7 @@ def draft_response(state : EmailState):
     responses = {
         "urgent": "We have received your email and will get back to you as soon as possible.",
         "normal": "Thank you for your email. We will review it and respond within 24-48 hours.",
-        "spam": "Your email has been marked as spam and will not be reviewed."
+        "spam": "This email has been categorized as spam and will be ignored."
     }
 
     return {
@@ -52,7 +55,7 @@ def draft_response(state : EmailState):
 graph_builder = StateGraph(EmailState)
 
 graph_builder.add_node("categorize_email", categorize_email)
-graph_builder.add_node("assign_priority", assingn_priority)
+graph_builder.add_node("assign_priority", assign_priority)
 graph_builder.add_node("draft_response", draft_response)
 
 graph_builder.add_edge(START, "categorize_email")
@@ -60,10 +63,10 @@ graph_builder.add_edge("categorize_email", "assign_priority")
 graph_builder.add_edge("assign_priority", "draft_response")
 graph_builder.add_edge("draft_response", END)
 
-graph = graph_builder.compile()
+graph = graph_builder.compile(checkpointer=checkpointer)
 
-result = graph.invoke({
-    "email": "I have offer for you"
-})
-
+result = graph.invoke(
+    {"email": "I have an offer for you"},
+    config={"configurable": {"thread_id": "1"}}
+)
 print(result)
