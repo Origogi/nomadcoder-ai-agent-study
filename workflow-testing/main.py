@@ -6,9 +6,11 @@ from pydantic import BaseModel, Field
 from langchain.chat_models import init_chat_model
 from dotenv import load_dotenv
 
+checkpointer = MemorySaver()
+
+
 load_dotenv()
 
-checkpointer = MemorySaver()
 
 llm = init_chat_model("openai:gpt-4o-mini")
 
