@@ -5,13 +5,16 @@ from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import MessagesState
-from langgraph.prebuilt import ToolNode, tools_condition
+from langgraph.prebuilt import ToolNode, tools_condition, InjectedState
 from langgraph.types import Command
 from pydantic import BaseModel
+from typing_extensions import Annotated
+
 
 class SupervisorOutput(BaseModel):
-    next_agent : Literal["korean_agent", "greek_agent", "spanish_agent", "__end__"]
-    reasoning : str
+    next_agent: Literal["korean_agent", "greek_agent", "spanish_agent", "__end__"]
+    reasoning: str
+
 
 load_dotenv()
 
@@ -25,12 +28,12 @@ class AgentState(MessagesState):
 llm = init_chat_model("openai:gpt-5-mini-2025-08-07")
 
 
-def make_agent(prompt, tools):
+def make_agent_tool(tool_name, tool_description, system_prompt, tools):
     def agent_node(state: AgentState):
         llm_with_tools = llm.bind_tools(tools)
         response = llm_with_tools.invoke(
-        f"""
-        {prompt}
+            f"""
+        {system_prompt}
 
 
         Conversation history:
@@ -47,71 +50,59 @@ def make_agent(prompt, tools):
     agent_builder.add_edge("tools", "agent")
     agent_builder.add_edge("agent", END)
 
-    return agent_builder.compile()
+    agent = agent_builder.compile()
+
+    @tool(
+        name_or_callable=tool_name,
+        description=tool_description,
+    )
+    def agent_tool(state: Annotated[dict, InjectedState]):
+        result = agent.invoke(state)
+
+        return result["messages"][-1].content
+
+    return agent_tool
+
 
 def supervisor(state: AgentState):
-    structured_llm = llm.with_structured_output(SupervisorOutput)
-    response = structured_llm.invoke(
-        f"""
-        You are a supervisor that routes conversations to the appropriate language agent.
+    llm_with_tools = llm.bind_tools(tools)
+    response = llm_with_tools.invoke(state["messages"])
 
-        Analyse the customers request and the conversation history and decide which agent shoude handle the conversation.
+    return {
+        "messages": [response],
+    }
 
-        The options for the next agent are:
-        - korean_agent: Korean customer support agent
-        - greek_agent: Greek customer support agent
-        - spanish_agent: Spanish customer support agent
-        - __end__: End the conversation
-
-        IMPORTANT:
-        
-        Never transfer to the same agent twice in a row.
-
-        If the agents has finished and replied feel free to finish the conversation returing __end__.
-
-        <Conversation history>
-        {state.get("messages", [])}
-        </Conversation history>
-        """
-    )
-    return Command(
-        goto=response.next_agent,
-        update={
-            "reasoning": response.reasoning,
-        }
-    )
+tools = [
+    make_agent_tool(
+        "korean_agent",
+        "An agent that is fluent in Korean. Use this tool to handle conversations in Korean.",
+        "You are a helpful assistant that is fluent in Korean. You can assist with any questions or tasks that require understanding of the Korean language.",
+        [],
+    ),
+    make_agent_tool(
+        "greek_agent",
+        "An agent that is fluent in Greek. Use this tool to handle conversations in Greek.",
+        "You are a helpful assistant that is fluent in Greek. You can assist with any questions or tasks that require understanding of the Greek language.",
+        [],
+    ),
+    make_agent_tool(
+        "spanish_agent",
+        "An agent that is fluent in Spanish. Use this tool to handle conversations in Spanish.",
+        "You are a helpful assistant that is fluent in Spanish. You can assist with any questions or tasks that require understanding of the Spanish language.",
+        [],
+    ),
+]
 
 graph_builder = StateGraph(AgentState)
 
-graph_builder.add_node("supervisor", supervisor, destinations=("korean_agent", "greek_agent", "spanish_agent", END))
-
 graph_builder.add_node(
-    "korean_agent",
-    make_agent(
-        prompt="You are a Korean customer support agent, You only speak and understand Korean.",
-        tools=[],
-    ),
+    "supervisor",
+    supervisor,
 )
-
-graph_builder.add_node(
-    "greek_agent",
-    make_agent(
-        prompt="You are a Greek customer support agent, You only speak and understand Greek.",
-        tools=[],
-    ),
-)
-
-graph_builder.add_node(
-    "spanish_agent",
-    make_agent(
-        prompt="You are a Spanish customer support agent, You only speak and understand Spanish.",
-        tools=[],
-    ),
-)
-
+graph_builder.add_node("tools", ToolNode(tools))
 graph_builder.add_edge(START, "supervisor")
-graph_builder.add_edge("korean_agent", "supervisor")
-graph_builder.add_edge("greek_agent", "supervisor")
-graph_builder.add_edge("spanish_agent", "supervisor")
+graph_builder.add_conditional_edges("supervisor", tools_condition)
+graph_builder.add_edge("tools", "supervisor")
+graph_builder.add_edge("supervisor", END)
 
 graph = graph_builder.compile()
