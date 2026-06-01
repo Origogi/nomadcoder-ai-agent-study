@@ -1,10 +1,12 @@
 {
     "dependencies" : [
         "agents/classification_agent.py",
+        "agents/teacher_agent.py",
+        "agents/feynman_agent.py",
         "main.py"
 ],
     "graphs" : {
         "tutor" : "./main.py:graph"
     },
-    "env" :"./env"
+    "env" :"./.env"
 }
