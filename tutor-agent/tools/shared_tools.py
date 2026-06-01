@@ -10,7 +10,7 @@ def transfer_to_agent(agent_name: str):
 
 
     Args:
-        agent_name : Name of agent to transfer to, one of :  teacher_agent or feynman_agent
+        agent_name : Name of agent to transfer to, one of : quiz_agent, teacher_agent or feynman_agent
     """
 
     print(f"Transferring to {agent_name}...")
