@@ -8,3 +8,17 @@ Content-Type: application/json
 {
     "question" : "카카오톡을 만들고 서비스 중인 회사에 대해서 알려줘"
 }
+###
+
+POST http://127.0.0.1:8000/conversations/conv_6a2816e720cc8194b78573261a001025093253ea5dfd9ea9/message-stream
+Content-Type: application/json
+
+{
+    "question" : "카카오톡을 만들고 서비스 중인 회사에 대해서 알려줘"
+}
+
+###
+
+curl -N -X POST http://127.0.0.1:8000/conversations/conv_6a2816e720cc8194b78573261a001025093253ea5dfd9ea9/message-stream \
+    -H "Content-Type: application/json " \
+    -d '{"question" : "카카오톡을 만들고 서비스 중인 회사에 대해서 알려줘"}'
