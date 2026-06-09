@@ -1,1 +1,10 @@
 POST http://127.0.0.1:8000/conversations
+
+###
+
+POST http://127.0.0.1:8000/conversations/conv_6a2816e720cc8194b78573261a001025093253ea5dfd9ea9/message
+Content-Type: application/json
+
+{
+    "question" : "카카오톡을 만들고 서비스 중인 회사에 대해서 알려줘"
+}
